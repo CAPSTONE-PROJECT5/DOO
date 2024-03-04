@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const approvalHistorySchema = new mongoose.Schema({
-  _id: ObjectId,
-  documentId: ObjectId,
-  approverId: ObjectId,
-  timestamp: Date,
-  comments: String,
-  decision: String,
-  previousStatus: String, // Optional, to track previous approval status
-  stageId: ObjectId, // Optional, to link to workflow stages
+// Define the ApprovalHistory schema
+const approvalHistorySchema = new Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+  documentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Document', required: true },
+  approverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  timestamp: { type: Date, default: Date.now, required: true },
+  previousStatus: { type: String }, // Added field for previous approval status
+  comments: { type: String },
+  decision: { type: String, required: true } // Changed field name to "decision" for clarity
 });
 
-// Export the schema
-module.exports = approvalHistorySchema;
+// Define the ApprovalHistory model
+const ApprovalHistory = mongoose.model('ApprovalHistory', approvalHistorySchema);
+
+module.exports = ApprovalHistory;

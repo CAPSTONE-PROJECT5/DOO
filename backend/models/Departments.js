@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
 
+// Define the schema
 const departmentSchema = new mongoose.Schema({
-  _id: ObjectId,
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   description: String,
+  parentDepartmentId: mongoose.Schema.Types.ObjectId, // Optional, for department hierarchy
+  managerId: mongoose.Schema.Types.ObjectId // Optional, to reference department manager
 });
 
-// Export the schema
-module.exports = departmentSchema;
+// Create the model
+const Department = mongoose.model('Department', departmentSchema);
+
+// Export the model
+module.exports = Department;

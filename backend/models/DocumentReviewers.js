@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const documentReviewerSchema = new mongoose.Schema({
-  _id: ObjectId,
-  documentId: { type: ObjectId, ref: 'Document' }, // Reference to the Document model
-  userId: { type: ObjectId, ref: 'User' }, // Reference to the User model
-  reviewDate: Date,
-  comments: String,
-
-  // Additional fields as needed (e.g., reviewRole, reviewStatus)
+// Define the DocumentReviewer schema
+const documentReviewerSchema = new Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+  documentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Document', required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  reviewDate: { type: Date, default: Date.now },
+  comments: { type: String, default: '' },
+  reviewRole: { type: String, enum: ['Primary Reviewer', 'Secondary Reviewer'] }, // Optional field for review roles
+  reviewStatus: { type: String, enum: ['Pending Review', 'Review Completed'], default: 'Pending Review' } // Optional field for review status
 });
 
-// Export the schema
-module.exports = documentReviewerSchema;
+// Define the DocumentReviewer model
+const DocumentReviewer = mongoose.model('DocumentReviewer', documentReviewerSchema);
+
+module.exports = DocumentReviewer;
+

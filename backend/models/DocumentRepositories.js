@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const documentRepositorySchema = new mongoose.Schema({
-  _id: ObjectId,
-  name: String,
+const documentRepositorySchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
   description: String,
-  location: String,
-
-  // Additional fields as needed (e.g., accessControlList: [ObjectId])
+  location: {
+    type: String,
+    required: true
+  },
+  // Additional fields as needed (e.g., accessControlList: [{ type: Schema.Types.ObjectId, ref: 'AccessControl' }])
 });
 
 // Export the schema
-module.exports = documentRepositorySchema;
+module.exports = mongoose.model('DocumentRepository', documentRepositorySchema);

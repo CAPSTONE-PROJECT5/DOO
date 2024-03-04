@@ -1,29 +1,22 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt'); // Assuming you're using bcrypt for password hashing
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
-  _id: ObjectId,
-  username: { type: String, unique: true, required: true },
+// Define the User schema
+const userSchema = new Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  name: String,
-  email: { type: String, unique: true, required: true },
-  role: String,
-  departmentId: ObjectId,
-  isAdmin: Boolean,
-  isActive: { type: Boolean, default: true }, // Optional, for user account status
-
-  // Additional user information as needed
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  role: { type: String, required: true },
+  departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Department', required: true },
+  isAdmin: { type: Boolean, default: false },
+  passwordResetToken: { type: String },
+  passwordResetExpires: { type: Date },
+  isActive: { type: Boolean, default: true } // Optional field for active status
 });
 
-// Hash password before saving the user
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 10;
-    const hash = await bcrypt.hash(this.password, saltRounds);
-    this.password = hash;
-  }
-  next();
-});
+// Define the User model
+const User = mongoose.model('User', userSchema);
 
-// Export the schema
-module.exports = userSchema;
+module.exports = User;

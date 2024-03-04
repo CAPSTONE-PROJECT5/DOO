@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
+// Define the schema for document types
 const documentTypeSchema = new mongoose.Schema({
-  _id: ObjectId,
-  name: String, // Optional, for a concise identifier
+  _id: mongoose.Schema.Types.ObjectId,
+  name: String,
   description: String,
-
-  // Additional fields as needed (e.g., permissions)
+  // Additional fields as needed
 });
 
-// Export the schema
-module.exports = documentTypeSchema;
+// Create and export the DocumentType model
+module.exports = mongoose.model('DocumentType', documentTypeSchema);
