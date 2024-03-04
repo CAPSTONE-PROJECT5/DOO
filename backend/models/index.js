@@ -1,18 +1,18 @@
 // index.js
 
-const Document = require('./document');
-const DocumentReviewers = require('./documentReviewers');
-const DocumentTypes = require('./documentTypes');
-const Workflows = require('./workflows');
-const Users = require('./users');
-const ApprovalStatuses = require('./approvalStatuses');
-const ApprovalHistory = require('./approvalHistory');
-const DigitalSignatures = require('./digitalSignatures');
-const DocumentRepositories = require('./documentRepositories');
-const Roles = require('./roles');
-const UserRoles = require('./userRoles');
-const DocumentTemplates = require('./documentTemplates');
-const Departments = require('./departments');
+const Document = require('./Document');
+const DocumentReviewers = require('./DocumentReviewers');
+const DocumentTypes = require('./DocumentTypes');
+const Workflows = require('./Workflows');
+const Users = require('./Users');
+const ApprovalStatuses = require('./ApprovalStatuses');
+const ApprovalHistory = require('./ApprovalHistory');
+const DigitalSignatures = require('./DigitalSignatures');
+const DocumentRepositories = require('./DocumentRepositories');
+const Roles = require('./Roles');
+const UserRoles = require('./UserRoles');
+const DocumentTemplates = require('./DocumentTemplates');
+const Departments = require('./Departments');
 
 module.exports = {
   Document,
