@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const documentTemplateSchema = new mongoose.Schema({
-  _id: ObjectId,
+  _id: mongoose.Schema.Types.ObjectId,
   templateName: String,
   contentStructure: {
     title: String,

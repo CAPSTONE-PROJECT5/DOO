@@ -1,5 +1,5 @@
 const express = require('express');
-const DocumentTemplate = require('../models/DocumentTemplate'); // Import the model
+const DocumentTemplate = require('../models/DocumentTemplates'); // Import the model
 
 const router = express.Router();
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define the DigitalSignatures schema
-const digitalSignatureSchema = new Schema({
+const digitalSignatureSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
   documentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Document', required: true },
   approverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

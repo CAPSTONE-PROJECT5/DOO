@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Document Schema
-const documentSchema = new Schema({
+const documentSchema = new mongoose.Schema({
     _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
     documentTypeId: { type: mongoose.Schema.Types.ObjectId, ref: 'DocumentType', required: true },
     title: { type: String, required: true },

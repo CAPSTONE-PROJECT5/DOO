@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define the ApprovalHistory schema
-const approvalHistorySchema = new Schema({
+const approvalHistorySchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, required: true, auto: true },
   documentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Document', required: true },
   approverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
