@@ -1,49 +1,72 @@
-// documents.js
-
 const express = require('express');
 const router = express.Router();
+const Document = require('../models/documentModel');
 
-// Import Document model
-const Document = require('../models/Document');
-
-// @route   GET /api/documents
-// @desc    Get all documents
-// @access  Public
-router.get('/', async (req, res) => {
-  try {
-    const documents = await Document.find();
-    res.json(documents);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
-  }
+// CREATE: Add a new document
+router.post('/documents', async (req, res) => {
+    try {
+        const document = await Document.create(req.body);
+        res.status(201).json(document);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
-// @route   POST /api/documents
-// @desc    Create a new document
-// @access  Public
-router.post('/', async (req, res) => {
-  try {
-    const newDocument = new Document(req.body);
-    const savedDocument = await newDocument.save();
-    res.json(savedDocument);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
-  }
+// READ: Get all documents
+router.get('/documents', async (req, res) => {
+    try {
+        const documents = await Document.find();
+        res.json(documents);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-// @route   DELETE /api/documents/:id
-// @desc    Delete a document
-// @access  Public
-router.delete('/:id', async (req, res) => {
-  try {
-    await Document.findByIdAndDelete(req.params.id);
-    res.json({ msg: 'Document deleted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
-  }
+// READ: Get a specific document by ID
+router.get('/documents/:id', getDocument, (req, res) => {
+    res.json(res.document);
 });
+
+// UPDATE: Update a specific document by ID
+router.patch('/documents/:id', getDocument, async (req, res) => {
+    if (req.body.documentTypeId != null) {
+        res.document.documentTypeId = req.body.documentTypeId;
+    }
+    if (req.body.title != null) {
+        res.document.title = req.body.title;
+    }
+    // Update other fields similarly
+
+    try {
+        const updatedDocument = await res.document.save();
+        res.json(updatedDocument);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// DELETE: Delete a specific document by ID
+router.delete('/documents/:id', getDocument, async (req, res) => {
+    try {
+        await res.document.remove();
+        res.json({ message: 'Document deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Middleware function to get a document by ID
+async function getDocument(req, res, next) {
+    try {
+        const document = await Document.findById(req.params.id);
+        if (document == null) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+        res.document = document;
+        next();
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+}
 
 module.exports = router;
