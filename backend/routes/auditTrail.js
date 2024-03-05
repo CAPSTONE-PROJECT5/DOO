@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const AuditTrail = require('../models/auditTrailModel');
+const AuditTrail = require('../models/AuditTrail');
 
 // CREATE: Add a new audit trail entry
 router.post('/audit-trail', async (req, res) => {

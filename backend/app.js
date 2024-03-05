@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const documentsRouter = require('./routes/documents'); // Import document routes
-const templatesRouter = require('./routes/templates');  // Import template routes
+const templatesRouter = require('./routes/documentTemplates');  // Import template routes
 
 // Create Express application
 const app = express();

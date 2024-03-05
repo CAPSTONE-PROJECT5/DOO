@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DocumentTemplate = require('../models/DocumentTemplate');
+const DocumentTemplate = require('../models/DocumentTemplates');
 
 // Route to create a new document template
 router.post('/document-templates', async (req, res) => {
